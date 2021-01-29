@@ -1,0 +1,13 @@
+{
+  "light": {
+    "primary": "#88caff",
+    "secondary": "#ff8800",
+    "background": "#e0e0e0",
+    "cards": "#fff",
+    "hover": "#c0c0c0",
+    "text": "#333"
+  },
+
+  "dark": {
+  }
+}

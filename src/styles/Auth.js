@@ -6,7 +6,7 @@ export const AuthCard = styled.div`
   flex-direction: column;
   background-color: ${props => props.theme.cards};
   width: 23rem;
-  height: 21rem;
+  height: 23rem;
   padding: 2rem;
 
   justify-content: space-around;
@@ -27,7 +27,7 @@ export const Form = styled.form`
 export const Input = styled.input`
   background-color: ${props => props.theme.cards};
   border: none;
-  border-bottom: 2px solid ${props => props.error ? '#ff3333' : props.theme.hover};
+  border-bottom: 2px solid ${props => props.error ? '#ff3333' : '#aaa'};
   font-size: 14pt;
   padding: 5px 2px;
   margin-bottom: 30px;
@@ -41,13 +41,16 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   width: 100%;
-  height: 40px;
+  height: 45px;
   border: none;
   color: #fff;
   font-size: 14pt;
   background-color: ${props => props.theme.primary};
   transition: 300ms;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: ${props => lighten(0.08, props.theme.primary)};

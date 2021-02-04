@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.text};
-    font-family: 'Lato', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   input:focus,
@@ -31,6 +31,11 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: underline;
   }
 
+  .active-tab {
+    border-bottom: 2px solid ${props => props.theme.primary};
+    color: ${props => props.theme.primary};
+  }
+
   .animated-left {
     animation-name: left;
     animation-duration: 500ms;
@@ -42,6 +47,15 @@ export const GlobalStyle = createGlobalStyle`
     }
     to {
       transform: translateX(0);
+    }
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { Background } from "../../src/components/Background";
+import { Background } from "../../src/styles/Background";
 import { ThemeContext } from "../../src/theme/ThemeProvider";
 import {
   AuthCard,
@@ -8,7 +8,7 @@ import {
   Input,
   Button,
   InputError,
-} from "../../src/components/Auth";
+} from "../../src/styles/Auth";
 import register from "../../src/api/register";
 
 export default function Register() {

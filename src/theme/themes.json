@@ -1,13 +1,20 @@
 {
-  "light": {
-    "primary": "#88caff",
-    "secondary": "#ff8800",
-    "background": "#e0e0e0",
-    "cards": "#fff",
-    "hover": "#c0c0c0",
-    "text": "#333"
-  },
-
-  "dark": {
-  }
+    "light": {
+        "name": "Light",
+        "primary": "#235789",
+        "secundary": "#ED1C24",
+        "cards": "#fff",
+        "background": "#f0f0f0",
+        "text": "#333",
+        "hover": "#f0f0f0"
+    },
+    "dark": {
+        "name": "Dark",
+        "primary": "#496B83",
+        "secundary": "#ED1C24",
+        "cards": "#666",
+        "background": "#333",
+        "text": "#f0f0f0",
+        "hover": "#888"
+    }
 }

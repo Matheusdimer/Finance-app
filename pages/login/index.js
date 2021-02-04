@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Background } from "../../src/components/Background";
+import { Background } from "../../src/styles/Background";
 import { ThemeContext } from "../../src/theme/ThemeProvider";
 import {
   AuthCard,
@@ -10,7 +10,8 @@ import {
   Button,
   CentralContent,
   InputError,
-} from "../../src/components/Auth";
+} from "../../src/styles/Auth";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import authenticate from "../../src/api/authenticate";
 
@@ -19,10 +20,12 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('none');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function submit(event) {
     event.preventDefault();
+    setLoading(true);
     const response = await authenticate(email, password);
 
     if (response.loggedIn) {
@@ -31,6 +34,7 @@ export default function Login() {
       router.push('/app')
     } else {
       setError(response.fieldErr)
+      setLoading(false);
     }
   }
 
@@ -61,12 +65,12 @@ export default function Login() {
             error={error === 'password' ? true : false}
           ></Input>
           <Button theme={theme} type="submit">
-            Login
+            {loading ? <CircularProgress color="inherit" size={28} /> : "Login"}
           </Button>
         </Form>
         <CentralContent>
           <Link href="/login/forgot-password">
-            <a>Esqueci minha senha</a>
+            <a style={{paddingTop: 15}}>Esqueci minha senha</a>
           </Link>
           <p>Não possui uma conta?</p>
           <Link className="link" href="/login/register">

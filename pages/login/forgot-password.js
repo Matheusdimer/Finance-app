@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
-import { Background } from '../../src/components/Background';
+import { Background } from '../../src/styles/Background';
 import { ThemeContext } from '../../src/theme/ThemeProvider';
-import { AuthCard, Form, Input, Button, InputError } from '../../src/components/Auth';
+import { AuthCard, Form, Input, Button, InputError } from '../../src/styles/Auth';
 
 export default function Register() {
   const theme = useContext(ThemeContext);

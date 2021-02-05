@@ -312,3 +312,83 @@ export const ScrollButton = styled.button`
     background-color: #f5f5f5;
   }
 `;
+
+export const MonthCard = styled.div`
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  width: 30rem;
+  height: 2.5rem;
+  margin-left: -15rem;
+  background-color: ${props => props.theme.cards};
+  transition: 300ms;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  
+  animation-name: appear;
+  animation-duration: 400ms;
+  animation-fill-mode: backwards;
+
+  border-radius: 4px;
+  //box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+  z-index: 5;
+`;
+
+export const Selected = styled.div`
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  ${props => props.active && `
+    border-bottom: solid 1px #aaa;
+  `}
+`;
+
+export const Months = styled.div`
+  margin-top: 5px;
+  width: 100%;
+  height: 22rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+`;
+
+export const ButtonMonth = styled.div`
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 0.5rem;
+
+  margin-top: 2px;
+
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  transition: 300ms;
+
+  cursor: pointer;
+
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+`;
+
+export const Loading = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 10rem;
+  width: 100%;
+`;

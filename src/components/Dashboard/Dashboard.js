@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import formatNumber from "../../utils/formatNumber";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
-import AppBar from "@material-ui/core/AppBar";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import MonthSelector from "./MonthSelector";
 import {
   MainContainer,
   BalanceGrid,
@@ -20,27 +19,52 @@ import {
   Input,
   CancelButton,
   SaveButton,
-  TabHeader,
-  TabsContainer,
-  TabButton,
-  ScrollButton,
+  Loading,
 } from "./style";
-import { Icon } from "@material-ui/core";
+
+import {
+  createTransaction,
+  deleteTransaction,
+  getTransactions,
+} from "../../api/transactions";
+
+const monthsNames = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
+];
 
 export default function Dashboard({ theme }) {
+  const [loadingState, setLoadingState] = useState(false);
   const [data, setData] = useState([]);
-  const [month, setMonth] = useState(() => {
-    let date = new Date();
-    return date.getMonth() + 1;
-  });
+  const [selectedMonth, setSelectedMonth] = useState(0);
+  const [showAddCard, setShowAddCard] = useState(false);
+  const [session, setSession] = useState(() =>
+    JSON.parse(sessionStorage.getItem("session"))
+  );
   const [balance, setBalance] = useState({
     income: "0,00",
     expenses: "0,00",
     balance: "0,00",
   });
-  const [showAddCard, setShowAddCard] = useState(false);
-  const [scrollPos, setScrollPos] = useState(0);
+  const [months, setMonths] = useState(() => {
+    const date = new Date();
 
+    const name = monthsNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    return [{ name, year }];
+  });
+  
   function calcBalance() {
     let income = 0;
     let expenses = 0;
@@ -50,9 +74,9 @@ export default function Dashboard({ theme }) {
       const element = data[i];
 
       if (element.type === "input") {
-        income += element.value;
+        income += element.cost;
       } else if (element.type === "output") {
-        expenses += element.value;
+        expenses += element.cost;
       }
     }
 
@@ -68,7 +92,15 @@ export default function Dashboard({ theme }) {
     });
   }
 
-  useEffect(calcBalance, [data]);
+  async function fetchData() {
+    setLoadingState(true);
+    const transactions = await getTransactions(session.user._id, session.token);
+    setData(transactions.data);
+    setLoadingState(false);
+  }
+
+  useEffect(fetchData, []);
+  useEffect(calcBalance,[data]);
 
   function AddTransaction() {
     const [name, setName] = useState("");
@@ -76,10 +108,10 @@ export default function Dashboard({ theme }) {
     const [type, setType] = useState("");
     const [date, setDate] = useState("");
 
-    function saveTransaction(name, value, type, date) {
+    async function saveTransaction(name, cost, type, date) {
       if (
         name.length === 0 ||
-        value.length === 0 ||
+        cost.length === 0 ||
         type.length === 0 ||
         date.length === 0
       ) {
@@ -96,21 +128,33 @@ export default function Dashboard({ theme }) {
       }
 
       let temp_data = data;
-      let temp_value = parseFloat(value);
+      let temp_cost = parseFloat(cost);
       let temp_date = new Date(date);
-
-      temp_date = temp_date.toLocaleDateString("pt-BR");
 
       temp_data.push({
         name,
-        value: temp_value,
+        cost: temp_cost,
         type: temp_type,
-        date: temp_date,
+        date: temp_date
       });
 
+      console.log(temp_data)
+
       setData(temp_data);
-      calcBalance();
       setShowAddCard(false);
+      calcBalance();
+
+      setLoadingState(true);
+      const transaction = await createTransaction({
+        name,
+        cost: temp_cost,
+        type: temp_type,
+        date: new Date(date),
+        user: session.user._id
+      }, session.token);
+
+      console.log(transaction)
+      setLoadingState(false);
     }
 
     return (
@@ -159,8 +203,10 @@ export default function Dashboard({ theme }) {
     );
   }
 
-  function deleteItem(index) {
+  async function deleteItem(index) {
+    const transactionId = data[index]._id;
     let temp_data = data;
+
 
     if (temp_data.length === 1) {
       temp_data = [];
@@ -170,12 +216,31 @@ export default function Dashboard({ theme }) {
 
     setData(temp_data);
     calcBalance();
+
+    setLoadingState(true);
+    const response = await deleteTransaction(transactionId, session.token);
+    if (response.ok) {
+      setLoadingState(false);
+    } else {
+      alert("Erro ao deletar transação do servidor");
+    }
   }
 
   return (
     <MainContainer theme={theme}>
+      {loadingState && (
+        <Loading>
+          <LinearProgress color="primary" />
+        </Loading>
+      )}
       {showAddCard && <AddTransaction />}
-      
+      <MonthSelector
+        theme={theme}
+        data={months}
+        month={selectedMonth}
+        setMonth={setSelectedMonth}
+      />
+
       <BalanceGrid theme={theme}>
         <InCard>
           <h3>Entradas:</h3>
@@ -204,19 +269,23 @@ export default function Dashboard({ theme }) {
 }
 
 function Items({ data, theme, deleteItem }) {
-  const Rows = data.map((item, index) => (
-    <Item key={item.name} theme={theme}>
-      <p>{item.name}</p>
-      <TransactionMoney neg={item.type === "output"}>
-        {item.type === "output" ? "- " : "+ "}R$ {formatNumber(item.value)}
-      </TransactionMoney>
-      <p>{item.date}</p>
+  const Rows = data.map((item, index) => {
+    let date = new Date(item.date);
+    date = date.toLocaleDateString("pt-br");
+    return (
+      <Item key={item.name} theme={theme}>
+        <p>{item.name}</p>
+        <TransactionMoney neg={item.type === "output"}>
+          {item.type === "output" ? "- " : "+ "}R$ {formatNumber(item.cost)}
+        </TransactionMoney>
+        <p>{date}</p>
 
-      <DeleteButton onClick={() => deleteItem(index)}>
-        highlight_off
-      </DeleteButton>
-    </Item>
-  ));
+        <DeleteButton onClick={() => deleteItem(index)}>
+          highlight_off
+        </DeleteButton>
+      </Item>
+    );
+  });
 
   return (
     <div

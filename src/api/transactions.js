@@ -1,4 +1,6 @@
-const url = "https://finance-backend.vercel.app";
+import { server } from "../config/apiConfig.json";
+
+const url = server;
 
 export async function createTransaction(transaction, token) {
   const response = await fetch(`${url}/transaction/create`, {

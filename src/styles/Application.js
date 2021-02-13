@@ -71,6 +71,10 @@ export const Sidebar = styled.div`
     left: -100%;
     z-index: 15;
 
+    width: 70vw;
+    justify-content: flex-start;
+    row-gap: 15px;
+
     &.show {
       left: 0;
     }
@@ -118,7 +122,20 @@ export const SideButton = styled.div`
 
   background-color: ${props => props.active && shade(0.1, props.theme.cards)};
 
+  ${props => props.active && `
+    color: ${props.theme.primary};
+  `}
+
   &:hover {
     background-color: ${props => props.theme.hover};
+  }
+
+  @media (max-width: 1024px) {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    box-sizing: border-box;
+    padding: 0 1.5rem;
+    height: auto;
   }
 `;

@@ -41,6 +41,11 @@ export default function App() {
     sidebar.classList.toggle("show");
   }
 
+  function switchTab(tabNumber) {
+    setActiveTab(tabNumber);
+    toggleMenu();
+  }
+
   if (!session) return <div>Você não está logado...</div>
 
   return (
@@ -62,7 +67,7 @@ export default function App() {
         <SideButton
           theme={theme}
           active={activeTab === 1}
-          onClick={() => setActiveTab(1)}
+          onClick={() => switchTab(1)}
         >
           <Icon style={{fontSize: 30}}>home</Icon>
           <p>Dashboard</p>
@@ -70,7 +75,7 @@ export default function App() {
         <SideButton
           theme={theme}
           active={activeTab === 2}
-          onClick={() => setActiveTab(2)}
+          onClick={() => switchTab(2)}
         >
           <Icon style={{fontSize: 30}}>date_range</Icon>
           <p>Gráfico Mensal</p>
@@ -78,7 +83,7 @@ export default function App() {
         <SideButton
           theme={theme}
           active={activeTab === 3}
-          onClick={() => setActiveTab(3)}
+          onClick={() => switchTab(3)}
         >
           <Icon style={{fontSize: 30}}>account_circle</Icon>
           <p>Conta</p>

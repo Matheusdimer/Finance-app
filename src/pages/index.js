@@ -15,7 +15,7 @@ export default function Home() {
           <Link href="/login">
             <a style={{ color: "#fff" }}>Login</a>
           </Link>
-          <Link href="/register">
+          <Link href="/login/register">
             <a style={{ color: "#fff" }}>Cadastre-se</a>
           </Link>
         </RowContent>

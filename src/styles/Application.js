@@ -68,8 +68,12 @@ export const Sidebar = styled.div`
   box-shadow: 2px 9px 21px -8px rgba(0,0,0,0.75);
 
   @media (max-width: 1024px) {
-    left: -10rem;
+    left: -100%;
     z-index: 15;
+
+    &.show {
+      left: 0;
+    }
   }
 `;
 

@@ -119,7 +119,7 @@ export const Money = styled.h1`
 
 export const Item = styled.div`
   width: calc(100% -20px);
-  height: 55px;
+  min-height: 55px;
   background-color: ${props => props.theme.cards};
 
   display: grid;

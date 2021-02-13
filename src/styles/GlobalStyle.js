@@ -32,7 +32,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .show {
-    left: 0;
+    left: 0px;
   }
 
   .active-tab {

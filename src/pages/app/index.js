@@ -35,6 +35,7 @@ export default function App() {
 
   function toggleMenu() {
     const sidebar = document.querySelector("#sidebar")
+    console.log("entrei")
 
     sidebar.classList.toggle("show");
   }
@@ -46,8 +47,10 @@ export default function App() {
       </Head>
       <Header theme={theme}>
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-        <MenuButton style={{fontSize: 28}} onClick={toggleMenu}>menu</MenuButton>
-        <HeaderTitle>Finance-app $</HeaderTitle>
+          <MenuButton onClick={toggleMenu} >
+            <Icon style={{fontSize: 28}}>menu</Icon>
+          </MenuButton>
+          <HeaderTitle>Finance-app $</HeaderTitle>
         </div>
         <HeaderTitle size="18pt">{session.user.name}</HeaderTitle>
       </Header>

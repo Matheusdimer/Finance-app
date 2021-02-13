@@ -68,7 +68,7 @@ export const Sidebar = styled.div`
   box-shadow: 2px 9px 21px -8px rgba(0,0,0,0.75);
 
   @media (max-width: 1024px) {
-    left: -100%;
+    left: -10rem;
     z-index: 15;
   }
 `;
@@ -82,7 +82,7 @@ export const HeaderTitle = styled.h1`
   }
 `;
 
-export const MenuButton = styled(Icon)`
+export const MenuButton = styled.div`
   display: none;
   @media (max-width: 1024px) {
     display: flex;

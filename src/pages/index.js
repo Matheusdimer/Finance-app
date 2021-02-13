@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import Link from "next/link";
+import Head from "next/head";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { Header, HeaderTitle } from "../styles/Application";
 import { CentralContent, RowContent } from "../styles/General";
@@ -9,6 +10,9 @@ export default function Home() {
 
   return (
     <CentralContent>
+      <Head>
+        <title>Home - Finance App</title>
+      </Head>
       <Header theme={theme}>
         <HeaderTitle>Finance-app $</HeaderTitle>
         <RowContent>

@@ -98,7 +98,7 @@ export default function Dashboard({ theme }) {
         const date = new Date();
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
-        console.log('antes do for each', list)
+        
         list.forEach((item, i) => {
           if (item.month === month && item.year === year)
           {

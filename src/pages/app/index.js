@@ -12,6 +12,7 @@ import {
   MenuButton
 } from "../../styles/Application";
 import TabController from "../../components/TabController";
+import { RowContent } from "../../styles/General";
 
 export default function App() {
   const router = useRouter();
@@ -21,7 +22,12 @@ export default function App() {
 
   useEffect(() => {
     const temp = sessionStorage.getItem("session");
-    setSession(JSON.parse(temp));
+    if (temp) {
+      setSession(JSON.parse(temp));  
+    } else {
+      router.push("/login");
+    }
+    
   }, []);
 
   function logOut() {
@@ -29,16 +35,13 @@ export default function App() {
     router.push('/');
   }
 
-  if (!session) {
-    return <p>Você não está logado...</p>;
-  }
-
   function toggleMenu() {
     const sidebar = document.querySelector("#sidebar")
-    console.log("entrei")
 
     sidebar.classList.toggle("show");
   }
+
+  if (!session) return <div>Você não está logado...</div>
 
   return (
     <AppContainer>
@@ -46,12 +49,12 @@ export default function App() {
         <title>Finance App</title>
       </Head>
       <Header theme={theme}>
-        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <RowContent>
           <MenuButton onClick={toggleMenu} >
             <Icon style={{fontSize: 28}}>menu</Icon>
           </MenuButton>
           <HeaderTitle>Finance-app $</HeaderTitle>
-        </div>
+        </RowContent>
         <HeaderTitle size="18pt">{session.user.name}</HeaderTitle>
       </Header>
 

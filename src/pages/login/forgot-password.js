@@ -7,8 +7,6 @@ import { AuthCard, Form, Input, Button, InputError } from '../../styles/Auth';
 export default function Register() {
   const theme = useContext(ThemeContext);
   const error = false;
-
-  document.title = "Esqueci minha senha";
   
   function submit(event) {
     event.preventDefault();

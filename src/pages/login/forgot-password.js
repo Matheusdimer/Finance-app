@@ -1,17 +1,23 @@
 import { useState, useContext } from 'react';
-import { Background } from '../../src/styles/Background';
-import { ThemeContext } from '../../src/theme/ThemeProvider';
-import { AuthCard, Form, Input, Button, InputError } from '../../src/styles/Auth';
+import Head from "next/head";
+import { Background } from '../../styles/Background';
+import { ThemeContext } from '../../theme/ThemeProvider';
+import { AuthCard, Form, Input, Button, InputError } from '../../styles/Auth';
 
 export default function Register() {
   const theme = useContext(ThemeContext);
   const error = false;
+
+  document.title = "Esqueci minha senha";
   
   function submit(event) {
     event.preventDefault();
   }
   return (
     <Background theme={theme}>
+      <Head>
+        <title>Esqueci minha Senha</title>
+      </Head>
       <AuthCard theme={theme}>
         <div className="animated-left">
           <h2>Redefinir Senha</h2>

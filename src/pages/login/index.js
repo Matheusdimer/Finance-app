@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Background } from "../../src/styles/Background";
-import { ThemeContext } from "../../src/theme/ThemeProvider";
+import { Background } from "../../styles/Background";
+import { ThemeContext } from "../../theme/ThemeProvider";
 import {
   AuthCard,
   Form,
@@ -10,10 +11,10 @@ import {
   Button,
   CentralContent,
   InputError,
-} from "../../src/styles/Auth";
+} from "../../styles/Auth";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import authenticate from "../../src/api/authenticate";
+import authenticate from "../../api/authenticate";
 
 export default function Login() {
   const theme = useContext(ThemeContext);
@@ -40,6 +41,9 @@ export default function Login() {
 
   return (
     <Background theme={theme}>
+      <Head>
+        <title>Login</title>
+      </Head>
       <AuthCard theme={theme}>
         <Form onSubmit={submit}>
           <label>

@@ -1,15 +1,17 @@
 import Icon from "@material-ui/core/Icon";
+import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import { ThemeContext } from "../../src/theme/ThemeProvider";
+import { ThemeContext } from "../../theme/ThemeProvider";
 import {
   Header,
   Sidebar,
   AppContainer,
   HeaderTitle,
   SideButton,
-} from "../../src/styles/Application";
-import TabController from "../../src/components/TabController";
+  MenuButton
+} from "../../styles/Application";
+import TabController from "../../components/TabController";
 
 export default function App() {
   const router = useRouter();
@@ -31,14 +33,26 @@ export default function App() {
     return <p>Você não está logado...</p>;
   }
 
+  function toggleMenu() {
+    const sidebar = document.querySelector("#sidebar")
+
+    sidebar.classList.toggle("show");
+  }
+
   return (
     <AppContainer>
+      <Head>
+        <title>Finance App</title>
+      </Head>
       <Header theme={theme}>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <MenuButton style={{fontSize: 28}} onClick={toggleMenu}>menu</MenuButton>
         <HeaderTitle>Finance-app $</HeaderTitle>
+        </div>
         <HeaderTitle size="18pt">{session.user.name}</HeaderTitle>
       </Header>
 
-      <Sidebar theme={theme}>
+      <Sidebar theme={theme} id="sidebar">
         <SideButton
           theme={theme}
           active={activeTab === 1}

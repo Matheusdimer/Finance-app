@@ -25,23 +25,10 @@ import {
 import {
   createTransaction,
   deleteTransaction,
-  getTransactions,
+  getAllTransactions,
+  getMonths,
+  getTransactionsByMonth,
 } from "../../api/transactions";
-
-const monthsNames = [
-  "Janeiro",
-  "Fevereiro",
-  "Março",
-  "Abril",
-  "Maio",
-  "Junho",
-  "Julho",
-  "Agosto",
-  "Setembro",
-  "Outubro",
-  "Novembro",
-  "Dezembro",
-];
 
 export default function Dashboard({ theme }) {
   const [loadingState, setLoadingState] = useState(false);
@@ -56,16 +43,10 @@ export default function Dashboard({ theme }) {
     expenses: "0,00",
     balance: "0,00",
   });
-  const [months, setMonths] = useState(() => {
-    const date = new Date();
+  const [months, setMonths] = useState([]);
 
-    const name = monthsNames[date.getMonth()];
-    const year = date.getFullYear();
-
-    return [{ name, year }];
-  });
-  
-  function calcBalance() {
+  function calcBalance() 
+  {
     let income = 0;
     let expenses = 0;
     let balance = 0;
@@ -73,9 +54,11 @@ export default function Dashboard({ theme }) {
     for (let i = 0; i < data.length; i++) {
       const element = data[i];
 
-      if (element.type === "input") {
+      if (element.type === "input")
+      {
         income += element.cost;
-      } else if (element.type === "output") {
+      } else if (element.type === "output") 
+      {
         expenses += element.cost;
       }
     }
@@ -92,15 +75,62 @@ export default function Dashboard({ theme }) {
     });
   }
 
-  async function fetchData() {
+  function fetchData() {
     setLoadingState(true);
-    const transactions = await getTransactions(session.user._id, session.token);
-    setData(transactions.data);
-    setLoadingState(false);
+
+    getMonths(session.user._id, session.token).then((month_list) => {
+      let list = month_list.data.sort((a, b) => {
+        if (a.month < b.month)
+        {
+          return -1;
+        }
+        else 
+        {
+          return 1;
+        }
+      });
+      let selected = selectedMonth;
+
+      setMonths(list);
+
+      if (data.length === 0)
+      {
+        const date = new Date();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        console.log('antes do for each', list)
+        list.forEach((item, i) => {
+          if (item.month === month && item.year === year)
+          {
+            selected = i;
+          } 
+          else
+          {
+            selected = -1;
+          }
+        });
+        console.log(selected);
+        if (selected === -1)
+        {
+          selected = list.length - 1;
+        }
+      }
+      setSelectedMonth(selected);
+
+      getTransactionsByMonth(
+        session.user._id,
+        session.token,
+        list[selected].month,
+        list[selected].year
+      ).then((transactions) => {
+        setData(transactions.data);
+        setLoadingState(false);
+      });
+    });
   }
 
-  useEffect(fetchData, []);
-  useEffect(calcBalance,[data]);
+  useEffect(fetchData, [selectedMonth]);
+  useEffect(calcBalance, [data]);
 
   function AddTransaction() {
     const [name, setName] = useState("");
@@ -135,25 +165,28 @@ export default function Dashboard({ theme }) {
         name,
         cost: temp_cost,
         type: temp_type,
-        date: temp_date
+        date: temp_date,
       });
 
-      console.log(temp_data)
+      console.log(temp_data);
 
       setData(temp_data);
       setShowAddCard(false);
       calcBalance();
 
       setLoadingState(true);
-      const transaction = await createTransaction({
-        name,
-        cost: temp_cost,
-        type: temp_type,
-        date: new Date(date),
-        user: session.user._id
-      }, session.token);
+      const transaction = await createTransaction(
+        {
+          name,
+          cost: temp_cost,
+          type: temp_type,
+          date: new Date(date),
+          user: session.user._id,
+        },
+        session.token
+      );
 
-      console.log(transaction)
+      console.log(transaction);
       setLoadingState(false);
     }
 
@@ -207,7 +240,6 @@ export default function Dashboard({ theme }) {
     const transactionId = data[index]._id;
     let temp_data = data;
 
-
     if (temp_data.length === 1) {
       temp_data = [];
     } else {
@@ -219,21 +251,25 @@ export default function Dashboard({ theme }) {
 
     setLoadingState(true);
     const response = await deleteTransaction(transactionId, session.token);
-    if (response.ok) {
+    if (response.ok) 
+    {
       setLoadingState(false);
-    } else {
+    } 
+    else 
+    {
       alert("Erro ao deletar transação do servidor");
     }
   }
 
   return (
-    <MainContainer theme={theme}>
-      {loadingState && (
+    <>
+    {showAddCard && <AddTransaction />}
+    {loadingState && (
         <Loading>
           <LinearProgress color="primary" />
         </Loading>
       )}
-      {showAddCard && <AddTransaction />}
+    <MainContainer theme={theme}>
       <MonthSelector
         theme={theme}
         data={months}
@@ -265,13 +301,25 @@ export default function Dashboard({ theme }) {
         <Items data={data} theme={theme} deleteItem={deleteItem} />
       </InOutCard>
     </MainContainer>
+    </>
   );
 }
 
 function Items({ data, theme, deleteItem }) {
+  data = data.sort((a, b) => {
+    if (a.date < b.date)
+    {
+      return -1;
+    }
+    else
+    {
+      return 1;
+    }
+  })
+
   const Rows = data.map((item, index) => {
     let date = new Date(item.date);
-    date = date.toLocaleDateString("pt-br");
+    date = ("00" + date.getUTCDate()).slice(-2) + "/" + ("00" + date.getUTCDay()).slice(-2) + "/" + date.getUTCFullYear();
     return (
       <Item key={item.name} theme={theme}>
         <p>{item.name}</p>

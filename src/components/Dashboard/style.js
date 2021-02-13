@@ -5,9 +5,13 @@ import Icon from "@material-ui/core/Icon";
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: clamp(300px, 70%, 100%);
   row-gap: 20px;
   padding-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    width: 90vw;
+  }
 `;
 
 export const BalanceGrid = styled.div`
@@ -15,8 +19,9 @@ export const BalanceGrid = styled.div`
   width: 100%;
   border-radius: 0.5rem;
   
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  
 
   justify-items: center;
   align-items: center;
@@ -25,6 +30,11 @@ export const BalanceGrid = styled.div`
 
   column-gap: 1rem;
   row-gap: 1rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 export const InCard = styled.div`
@@ -121,6 +131,12 @@ export const Item = styled.div`
   align-items: center;
 
   padding: 0 30px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1.6fr 1.6fr 1.4fr 0.4fr;
+    padding: 0 5px 0 20px;
+    font-size: 14px;
+  }
 `;
 
 export const AddButton = styled.a`
@@ -168,6 +184,7 @@ export const Mask = styled.div`
   animation-name: appear;
   animation-duration: 300ms;
   animation-fill-mode: backwards;
+  z-index: 10;
 `;
 
 export const AddCard = styled.div`
@@ -183,7 +200,6 @@ export const AddCard = styled.div`
 
   margin-top: -12rem;
   margin-left: -14rem;
-  z-index: 5;
 
   box-sizing: border-box;
   padding: 2rem;
@@ -197,6 +213,12 @@ export const AddCard = styled.div`
 
   -webkit-box-shadow: 3px 2px 17px 5px rgba(0,0,0,0.51); 
   box-shadow: 3px 2px 17px 5px rgba(0,0,0,0.51);
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    margin-left: -50%;
+    z-index: 10;
+  }
 `;
 
 export const Input = styled.input`
@@ -318,7 +340,7 @@ export const MonthCard = styled.div`
   top: 1.25rem;
   left: 50%;
   width: 30rem;
-  height: 2.5rem;
+  min-height: 2.5rem;
   margin-left: -15rem;
   background-color: ${props => props.theme.cards};
   transition: 300ms;
@@ -331,8 +353,15 @@ export const MonthCard = styled.div`
   animation-fill-mode: backwards;
 
   border-radius: 4px;
-  //box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
-  z-index: 5;
+  z-index: 25;
+
+  @media (max-width: 1024px) {
+    position: static;
+    margin: 0;
+    width: 100%;
+    z-index: 11;
+    box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+  }
 `;
 
 export const Selected = styled.div`
@@ -389,6 +418,6 @@ export const ButtonMonth = styled.div`
 export const Loading = styled.div`
   position: fixed;
   top: 5rem;
-  left: 10rem;
+  left: 0rem;
   width: 100%;
 `;

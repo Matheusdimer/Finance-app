@@ -31,6 +31,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: underline;
   }
 
+  .show {
+    left: 0;
+  }
+
   .active-tab {
     border-bottom: 2px solid ${props => props.theme.primary};
     color: ${props => props.theme.primary};

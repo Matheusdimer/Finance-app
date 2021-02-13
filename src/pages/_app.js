@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useContext } from "react";
-import { GlobalStyle } from "../src/styles/GlobalStyle";
-import ThemeProvider, { ThemeContext } from "../src/theme/ThemeProvider";
+import { GlobalStyle } from "../styles/GlobalStyle";
+import ThemeProvider, { ThemeContext } from "../theme/ThemeProvider";
 
 function Root({ Component, pageProps }) {
   return (

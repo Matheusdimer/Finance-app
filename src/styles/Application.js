@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from '@material-ui/core/Icon';
 import { shade } from 'polished';
 
 export const Header = styled.header`
@@ -13,12 +14,16 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
-  z-index: 5;
+  z-index: 20;
 
   box-sizing: border-box;
 
   -webkit-box-shadow: 0px 5px 17px 5px rgba(0,0,0,0.48); 
-  box-shadow: 0px 5px 17px 5px rgba(0,0,0,0.48);
+  box-shadow: 0px 3px 17px 5px rgba(0,0,0,0.48);
+
+  @media (max-width: 1024px) {
+    padding: 0 15px;
+  }
 `;
 
 export const AppContainer = styled.div`
@@ -30,6 +35,10 @@ export const AppContainer = styled.div`
   justify-content: center;
   padding-left: 10rem;
   padding-top: 6.5rem;
+
+  @media (max-width: 1024px) {
+    padding-left: 0;
+  }
 `;
 
 export const Sidebar = styled.div`
@@ -50,14 +59,46 @@ export const Sidebar = styled.div`
 
   box-sizing: border-box;
 
+  transition: 400ms;
+
+  z-index: 5;
+
   -webkit-box-shadow: 2px 9px 21px -8px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 9px 21px -8px rgba(0,0,0,0.75);
   box-shadow: 2px 9px 21px -8px rgba(0,0,0,0.75);
+
+  @media (max-width: 1024px) {
+    left: -100%;
+    z-index: 15;
+  }
 `;
 
 export const HeaderTitle = styled.h1`
   color: #fff;
   font-size: ${props => props.size};
+
+  @media (max-width: 1024px) {
+    font-size: 12pt;
+  }
+`;
+
+export const MenuButton = styled(Icon)`
+  display: none;
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-right: 15px;
+    transition: 300ms;
+    cursor: pointer;
+    
+    font-size: 50px;
+
+    &:hover {
+      color: #e0e0e0;
+    }
+  }
 `;
 
 export const SideButton = styled.div`

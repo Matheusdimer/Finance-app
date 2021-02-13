@@ -1,15 +1,16 @@
 import { useState, useContext } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { Background } from "../../src/styles/Background";
-import { ThemeContext } from "../../src/theme/ThemeProvider";
+import { Background } from "../../styles/Background";
+import { ThemeContext } from "../../theme/ThemeProvider";
 import {
   AuthCard,
   Form,
   Input,
   Button,
   InputError,
-} from "../../src/styles/Auth";
-import register from "../../src/api/register";
+} from "../../styles/Auth";
+import register from "../../api/register";
 
 export default function Register() {
   const theme = useContext(ThemeContext);
@@ -35,6 +36,9 @@ export default function Register() {
   }
   return (
     <Background theme={theme}>
+      <Head>
+        <title>Finance App</title>
+      </Head>
       <AuthCard theme={theme}>
         <Form onSubmit={submit} className="animated-left">
           <label>

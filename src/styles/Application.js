@@ -71,7 +71,8 @@ export const Sidebar = styled.div`
     left: -100%;
     z-index: 15;
 
-    width: 70vw;
+    width: 75vw;
+    max-width: 20rem;
     justify-content: flex-start;
     row-gap: 15px;
 
@@ -132,10 +133,13 @@ export const SideButton = styled.div`
 
   @media (max-width: 1024px) {
     width: 95%;
-    display: grid;
-    grid-template-columns: 25% 75%;
+    display: flex;
+    border-radius: 3rem;
+    flex-direction: row;
     box-sizing: border-box;
     padding: 0 1.5rem;
     height: auto;
+    column-gap: 1.5rem;
+    justify-content: flex-start;
   }
 `;

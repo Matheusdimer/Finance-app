@@ -53,7 +53,12 @@ export const InCard = styled.div`
 
   color: #f0f0f0;
 
-  align-items: flex-start; 
+  align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    padding: 10px 25px;
+    font-size: 15px;
+  }
 `;
 
 export const OutCard = styled.div`
@@ -72,7 +77,12 @@ export const OutCard = styled.div`
 
   color: #f0f0f0;
 
-  align-items: flex-start; 
+  align-items: flex-start;
+  
+  @media (max-width: 1024px) {
+    padding: 10px 25px;
+    font-size: 15px;
+  }
 `;
 
 export const BalanceCard = styled.div`
@@ -91,7 +101,12 @@ export const BalanceCard = styled.div`
 
   color: #f0f0f0;
 
-  align-items: flex-start; 
+  align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    padding: 10px 25px;
+    font-size: 15px;
+  }
 `;
 
 export const InOutCard = styled.div`
@@ -115,6 +130,12 @@ export const Money = styled.h1`
   font-size: 28px;
   font-weight: 550;
   align-self: flex-start;
+
+  @media(max-width: 1024px) {
+    font-size: 22px;
+    margin: 0;
+    margin-bottom: 15px;
+  }
 `;
 
 export const Item = styled.div`

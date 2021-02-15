@@ -1,6 +1,6 @@
-# Finance-app (Em desenvolvimento)
+# Finance-app
 
-Aplicativo Web React para controle de finanças, utilizando o framework NextJs.
+Aplicativo Web React para controle de finanças, utilizando o framework NextJs (em desenvolvimento).
 
 ### Principais funcionalidades:
  - Cadastro de entradas e despesas e seus respectivos valores

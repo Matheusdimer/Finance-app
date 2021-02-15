@@ -42,7 +42,7 @@ export default function MonthSelector({ data, month, setMonth, theme }) {
 
   return (
     <>
-      {expanded && <Mask />}
+      {expanded && document.documentElement.clientWidth > 1024 ? <Mask /> : null}
       <MonthCard id="month-selector" onClick={expand} theme={theme}>
         {data.length !== 0 && (
           <Selected active={expanded}>

@@ -375,13 +375,13 @@ export const MonthCard = styled.div`
 
   border-radius: 4px;
   z-index: 25;
+  box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
 
   @media (max-width: 1024px) {
     position: static;
     margin: 0;
     width: 100%;
-    z-index: 11;
-    box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+    z-index: 1;
   }
 `;
 

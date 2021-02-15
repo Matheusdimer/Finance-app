@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Finance-app (Em desenvolvimento)
 
-## Getting Started
+Aplicativo Web React para controle de finanças, utilizando o framework NextJs.
 
-First, run the development server:
+### Principais funcionalidades:
+ - Cadastro de entradas e despesas e seus respectivos valores
+ - Cálculos dos totais de despesas, entradas e balanço de cada mês
+ - Gráficos para a vizualização dos seus gastos mês a mês
 
+#### Link para usar versão Beta: https://finance-app-dimer.vercel.app/
+
+### Tecnologias utilizadas:
+Frontend:
+ - React
+ - NextJs
+ - Styled Components
+ 
+Backend:
+ - NodeJs
+ - Express
+ - MongoDB
+
+Para instalar o projeto localmente na sua máquina:
 ```bash
-npm run dev
-# or
+npm install
+# ou
+yarn install
+
+```
+Para subir um ambiente de desenvolvimento utilize:
+```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Para versão otimizada de produção utilize:
+```bash
+yarn build
+# e então
+yarn start
+```
